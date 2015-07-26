@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">KiddyMov</string>
+    <string name="parents_button_text">Parents</string>
+    <string name="kids_button_text">kids</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="title_activity_main">Hello World!</string>
+    <string name="title_activity_kids_menu">Kids Menu</string>
+    <string name="title_activity_parents_menu">Parent Menu</string>
+
+</resources>
