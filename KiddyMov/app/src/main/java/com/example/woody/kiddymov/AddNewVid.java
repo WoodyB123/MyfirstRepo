@@ -1,36 +1,26 @@
 package com.example.woody.kiddymov;
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioGroup;
 
 
-public class SearchableActivity extends ActionBarActivity {
+public class AddNewVid extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchable);
-
-        // Get the intent, verify the action and get the query
-        Intent intent = getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            doMySearch(query);
-        }
-    }
-
-    private void doMySearch(String query) {
+        setContentView(R.layout.activity_add_new_vid);
+        RadioGroup q1 = (RadioGroup) findViewById(R.id.q1);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_searchable, menu);
+        getMenuInflater().inflate(R.menu.menu_add_new_vid, menu);
         return true;
     }
 

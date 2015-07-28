@@ -1,17 +1,38 @@
 package com.example.woody.kiddymov;
 
+import android.app.SearchManager;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 
 
 public class ParentMenu extends ActionBarActivity {
+
+    private EditText search_key_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parents_menu);
+        search_key_text = (EditText) findViewById(R.id.key_to_search);
+
+    }
+
+    public void searchVidOnLine(View view){
+        Intent search = new Intent(Intent.ACTION_WEB_SEARCH);
+        String query = search_key_text.getText().toString();
+        search.putExtra(SearchManager.QUERY, query);
+
+        startActivity(search);
+    }
+
+    public void addNewVid(View view){
+        Intent intent = new Intent(this,AddNewVid.class);
+        startActivity(intent);
     }
 
     @Override

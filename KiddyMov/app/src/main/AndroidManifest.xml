@@ -33,13 +33,12 @@
                 android:value="com.example.woody.kiddymov.MainActivity" />
         </activity>
         <activity
-            android:name=".SearchableActivity"
-            android:label="@string/title_activity_searchable" >
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
+            android:name=".AddNewVidActivity"
+            android:label="@string/title_activity_add_new_vid" >
+        </activity>
+        <activity
+            android:name=".AddNewVid"
+            android:label="@string/title_activity_add_new_vid" >
         </activity>
     </application>
 

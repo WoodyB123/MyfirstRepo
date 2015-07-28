@@ -5,12 +5,22 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="app_label">app_label</string>
-    <string name="search_hint">Search online</string>
+    <string name="search_vid">Search online</string>
+    <string name="search_box">Search online</string>
+    <string name="search_button">Go!</string>
+    <string name="add_vid_box">Enter URL here</string>
+    <string name="add_vid_button">Go!</string>
+    <string name="q1">How good is this movie?</string>
+    <string name="a1">Hell good!</string>
+    <string name="a2">Not for my child</string>
+
+
 
 
     <string name="title_activity_main">Hello World!</string>
     <string name="title_activity_kids_menu">Kids Menu</string>
     <string name="title_activity_parents_menu">Parent Menu</string>
     <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="title_activity_add_new_vid">AddNewVid</string>
 
 </resources>
