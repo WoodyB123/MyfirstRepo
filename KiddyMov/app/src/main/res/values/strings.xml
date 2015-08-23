@@ -15,6 +15,7 @@
     <string name="a1">Hell good!</string>
     <string name="a2">Not for my child</string>
     <string name="enter_vid_to_db">Enter video</string>
+    <string name="add_record_button">Add record</string>
 
 
     <string name="title_activity_main">Hello World!</string>
@@ -22,5 +23,6 @@
     <string name="title_activity_parents_menu">Parent Menu</string>
     <string name="title_activity_searchable">SearchableActivity</string>
     <string name="title_activity_add_new_vid">AddNewVid</string>
+    <string name="title_activity_audio_record">AudioRecordActivity</string>
 
 </resources>

@@ -12,10 +12,9 @@ import org.bson.Document;
 import java.net.URL;
 
 
-public class MongoHandler extends AsyncTask<URL , Void, String> {
-
+public class MongoHandler extends AsyncTask<Document , Void, String> {
     @Override
-    protected String doInBackground(URL... urls) {
+    protected String doInBackground(Document... docs) {
         MongoClientURI server_uri;
         MongoClient mongoClient;
         DBPathBuilder pathBuilder = new DBPathBuilder();
@@ -25,10 +24,11 @@ public class MongoHandler extends AsyncTask<URL , Void, String> {
         MongoDatabase database = mongoClient.getDatabase("code101");
         MongoCollection<Document> collection = database.getCollection("doc101");
 
-        Document doc = new Document("name", "MongoDB")
-                .append("type", "database")
-                .append("count", 1)
-                .append("info", new Document("x", 207).append("y", 110));
+        Document doc = new Document(docs[0]);
+//        Document doc = new Document("URL", "MongoDB")
+//                .append("type", "database")
+//                .append("count", 1)
+//                .append("info", new Document("x", 207).append("y", 110));
 
         collection.insertOne(doc);
         return "done";

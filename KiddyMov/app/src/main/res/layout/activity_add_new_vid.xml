@@ -38,4 +38,10 @@
         android:layout_height="wrap_content"
         android:text="@string/enter_vid_to_db"
         android:id="@+id/send_to_db_button"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_record_button"
+        android:id="@+id/add_record_button"/>
+
 </LinearLayout>

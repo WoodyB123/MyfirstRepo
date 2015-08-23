@@ -14,11 +14,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.bson.Document;
+
 import java.net.URL;
 
 public class AddNewVid extends ActionBarActivity {
     private String new_vid_str;
-    private Integer answer1;
+    private Integer answer1 = 0;
     private MongoHandler mongoDBHandler = new MongoHandler();
     private ProgressDialog barProgressDialog;
     private Handler updateBarHandler;
@@ -46,37 +48,55 @@ public class AddNewVid extends ActionBarActivity {
                                 "number:" + checkedId_str + "is checked",
                                 Toast.LENGTH_SHORT);
                         toast.show();
-
                     }
                 }
         );
+
 
         Button send_button = (Button) findViewById(R.id.send_to_db_button);
 
         send_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                URL temp_url;
-                try {
-                    temp_url = new URL(new_vid_str);
-                } catch (Exception e) {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Url is not parsed",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-
-                    return;
-                }
-
-                mongoDBHandler.execute(temp_url);
+// TODO: take user details.
+                Document vid_doc = new Document();
+                vid_doc.append("vid_url", new_vid_str)
+                        .append("q1", answer1)
+                        .append("count", 0)
+                        .append("user_name", "TBD");
+                mongoDBHandler.execute(vid_doc);
                 try {
                     launchBarDialog();
                 } catch (Exception e) {
-
                 }
                 return;
             }
         });
+
+        Button add_record_button = (Button) findViewById(R.id.add_record_button);
+        add_record_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddNewVid.this, AudioRecordActivity.class);
+                startActivityForResult(intent,1);
+            }
+
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                // The user picked a contact.
+                // The Intent's data Uri identifies which contact was selected.
+
+                // Do something with the contact here (bigger example below)
+            }
+        }
     }
 
     public void launchBarDialog() {
