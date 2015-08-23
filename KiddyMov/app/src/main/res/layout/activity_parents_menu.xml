@@ -11,7 +11,7 @@
 
     <EditText
         android:id="@+id/key_to_search"
-        android:text="@string/search_box"
+        android:text="@string/search_vid2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button

@@ -6,15 +6,15 @@
     <string name="hello_world">Hello world!</string>
     <string name="app_label">app_label</string>
     <string name="search_vid">Search online</string>
+    <string name="search_vid2">https://www.youtube.com/watch?v=cbP2N1BQdYc</string>
     <string name="search_box">Search online</string>
     <string name="search_button">Go!</string>
-    <string name="add_vid_box">Enter URL here</string>
+    <string name="add_vid_box">https://www.youtube.com/watch?v=cbP2N1BQdYc</string>
     <string name="add_vid_button">Go!</string>
     <string name="q1">How good is this movie?</string>
     <string name="a1">Hell good!</string>
     <string name="a2">Not for my child</string>
-
-
+    <string name="enter_vid_to_db">Enter video</string>
 
 
     <string name="title_activity_main">Hello World!</string>

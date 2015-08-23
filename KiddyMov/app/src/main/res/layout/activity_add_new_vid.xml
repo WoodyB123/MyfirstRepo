@@ -29,5 +29,13 @@
             android:text="@string/a2"
             android:id="@+id/a2"/>
     </RadioGroup>
-
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/display_url"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_vid_to_db"
+        android:id="@+id/send_to_db_button"/>
 </LinearLayout>
