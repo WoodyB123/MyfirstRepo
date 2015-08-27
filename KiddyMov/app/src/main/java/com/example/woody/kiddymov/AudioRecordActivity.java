@@ -2,6 +2,7 @@ package com.example.woody.kiddymov;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.LinearLayout;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,6 +16,7 @@ import android.media.MediaRecorder;
 import android.media.MediaPlayer;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 
 public class AudioRecordActivity extends Activity
@@ -126,15 +128,32 @@ public class AudioRecordActivity extends Activity
         }
     }
 
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
     public void AudioRecordTest() {
+
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-        mFileName += "/audiorecordtest.3gp";
+        Calendar c = Calendar.getInstance();
+        String time_str = c.getTime().toString();
+        mFileName += "/" + time_str + "audiorecordtest.3gp";
+
+//        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+//        mFileName += "/"+R.string.app_name+"/records/";
+//        // TODO : give a unic name. Time based is fine.
+//        mFileName += "/audiorecordtest.3gp";
     }
 
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        AudioRecordTest();
         LinearLayout ll = new LinearLayout(this);
         mRecordButton = new RecordButton(this);
         ll.addView(mRecordButton,
@@ -148,6 +167,25 @@ public class AudioRecordActivity extends Activity
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         0));
+        Button done_button = new Button(this);
+        done_button.setText("Done");
+        done_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AudioRecordActivity.this, AddNewVid.class);
+                intent.putExtra("FILE_NAME", mFileName);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        ll.addView(done_button,
+                new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        0));
+
+//        done_button = (Button) findViewById(R.id.add_record_done_button);
+//        ll.addView(done_button);
         setContentView(ll);
     }
 

@@ -16,6 +16,7 @@
     <string name="a2">Not for my child</string>
     <string name="enter_vid_to_db">Enter video</string>
     <string name="add_record_button">Add record</string>
+    <string name="add_record_done_button_text">Done</string>
 
 
     <string name="title_activity_main">Hello World!</string>

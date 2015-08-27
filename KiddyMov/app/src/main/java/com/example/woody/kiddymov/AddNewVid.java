@@ -16,10 +16,9 @@ import android.widget.Toast;
 
 import org.bson.Document;
 
-import java.net.URL;
-
 public class AddNewVid extends ActionBarActivity {
     private String new_vid_str;
+    private String record_path = "";
     private Integer answer1 = 0;
     private MongoHandler mongoDBHandler = new MongoHandler();
     private ProgressDialog barProgressDialog;
@@ -63,7 +62,8 @@ public class AddNewVid extends ActionBarActivity {
                 vid_doc.append("vid_url", new_vid_str)
                         .append("q1", answer1)
                         .append("count", 0)
-                        .append("user_name", "TBD");
+                        .append("user_name", "TBD")
+                        .append("record_file_path", record_path);
                 mongoDBHandler.execute(vid_doc);
                 try {
                     launchBarDialog();
@@ -93,7 +93,7 @@ public class AddNewVid extends ActionBarActivity {
             if (resultCode == RESULT_OK) {
                 // The user picked a contact.
                 // The Intent's data Uri identifies which contact was selected.
-
+                record_path = data.getStringExtra("FILE_NAME");
                 // Do something with the contact here (bigger example below)
             }
         }
