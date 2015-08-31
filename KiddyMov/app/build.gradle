@@ -21,6 +21,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:22.2.1'
     compile project(':mongo-java-driver-3.0.2')
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.google.android.gms:play-services:7.5.0'
 }

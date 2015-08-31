@@ -17,6 +17,10 @@
     <string name="enter_vid_to_db">Enter video</string>
     <string name="add_record_button">Add record</string>
     <string name="add_record_done_button_text">Done</string>
+    <string name="kids_menu_button_start_voice">Start S2T</string>
+
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
 
 
     <string name="title_activity_main">Hello World!</string>

@@ -1,5 +1,7 @@
 package com.example.woody.kiddymov;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -16,11 +18,15 @@ import android.widget.Toast;
 
 import org.bson.Document;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class AddNewVid extends ActionBarActivity {
     private String new_vid_str;
     private String record_path = "";
     private Integer answer1 = 0;
     private MongoHandler mongoDBHandler = new MongoHandler();
+    private AsyncTask insertTask;
     private ProgressDialog barProgressDialog;
     private Handler updateBarHandler;
 
@@ -57,14 +63,18 @@ public class AddNewVid extends ActionBarActivity {
         send_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-// TODO: take user details.
-                Document vid_doc = new Document();
-                vid_doc.append("vid_url", new_vid_str)
-                        .append("q1", answer1)
-                        .append("count", 0)
-                        .append("user_name", "TBD")
-                        .append("record_file_path", record_path);
-                mongoDBHandler.execute(vid_doc);
+                String user_name = getUsername();
+// TODO: Earse the next line.
+                user_name = "temp_user";
+                DocumetsBuilder doc_builder =  new DocumetsBuilder(AddNewVid.this);
+                Document vid_doc = doc_builder.getDoc(new_vid_str,answer1,0,record_path);
+//                Document vid_doc = new Document();
+//                vid_doc.append("vid_url", new_vid_str)
+//                        .append("q1", answer1)
+//                        .append("count", 0)
+//                        .append("user_name", user_name)
+//                        .append("record_file_path", record_path);
+                insertTask = mongoDBHandler.insertDoc(vid_doc);
                 try {
                     launchBarDialog();
                 } catch (Exception e) {
@@ -80,9 +90,28 @@ public class AddNewVid extends ActionBarActivity {
                 Intent intent = new Intent(AddNewVid.this, AudioRecordActivity.class);
                 startActivityForResult(intent,1);
             }
-
         });
+    }
 
+    public String getUsername() {
+        AccountManager manager = AccountManager.get(this);
+        Account[] accounts = manager.getAccountsByType("com.google");
+        List<String> possibleEmails = new LinkedList<String>();
+
+        for (Account account : accounts) {
+            // TODO: Check possibleEmail against an email regex or treat
+            // account.name as an email address only for certain account.type values.
+            possibleEmails.add(account.name);
+        }
+
+        if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+            String email = possibleEmails.get(0);
+            String[] parts = email.split("@");
+
+            if (parts.length > 1)
+                return parts[0];
+        }
+        return null;
     }
 
     @Override
@@ -115,7 +144,7 @@ public class AddNewVid extends ActionBarActivity {
                     // Here you should write your time consuming task...
                     while (barProgressDialog.getProgress() <= barProgressDialog.getMax()) {
                         Thread.sleep(1000);
-                        AsyncTask.Status stat = mongoDBHandler.getStatus();
+                        AsyncTask.Status stat = insertTask.getStatus();
                         if (stat == AsyncTask.Status.FINISHED) {
                             barProgressDialog.setProgress(21);
                         }

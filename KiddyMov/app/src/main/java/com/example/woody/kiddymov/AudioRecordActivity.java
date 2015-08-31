@@ -78,6 +78,7 @@ public class AudioRecordActivity extends Activity
         mRecorder.start();
     }
 
+
     private void stopRecording() {
         mRecorder.stop();
         mRecorder.release();
@@ -137,11 +138,17 @@ public class AudioRecordActivity extends Activity
         return false;
     }
 
-    public void AudioRecordTest() {
+    public void nameTheFile() {
 
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         Calendar c = Calendar.getInstance();
         String time_str = c.getTime().toString();
+        time_str = time_str.replace(" ", "");
+        time_str = time_str.replace(".","_");
+        time_str = time_str.replace(":","_");
+        time_str = time_str.replace("+","p");
+        time_str = time_str.replace("-","m");
+
         mFileName += "/" + time_str + "audiorecordtest.3gp";
 
 //        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -153,7 +160,7 @@ public class AudioRecordActivity extends Activity
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        AudioRecordTest();
+        nameTheFile();
         LinearLayout ll = new LinearLayout(this);
         mRecordButton = new RecordButton(this);
         ll.addView(mRecordButton,
