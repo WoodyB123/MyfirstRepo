@@ -9,8 +9,8 @@
     <string name="search_vid2">https://www.youtube.com/watch?v=cbP2N1BQdYc</string>
     <string name="search_box">Search online</string>
     <string name="search_button">Go!</string>
-    <string name="add_vid_box">https://www.youtube.com/watch?v=cbP2N1BQdYc</string>
-    <string name="add_vid_button">Go!</string>
+    <string name="add_vid_box">Copy URL here</string>
+    <string name="add_vid_button">Enter</string>
     <string name="q1">How good is this movie?</string>
     <string name="a1">Hell good!</string>
     <string name="a2">Not for my child</string>

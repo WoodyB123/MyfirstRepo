@@ -15,6 +15,8 @@ import android.util.Log;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
@@ -139,8 +141,17 @@ public class AudioRecordActivity extends Activity
     }
 
     public void nameTheFile() {
-
-        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
+        //Creating an internal directory
+        String dir_name = R.string.app_name + "_private_folder";
+        File mydir = this.getDir(dir_name, Context.MODE_PRIVATE);
+        //Getting a file within the dir.
+        File fileWithinMyDir = new File(mydir, dir_name);
+        try {
+            FileOutputStream out = new FileOutputStream(fileWithinMyDir);
+        }
+        catch (Exception e){}
+        mFileName = mydir.getAbsolutePath();
+//        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         Calendar c = Calendar.getInstance();
         String time_str = c.getTime().toString();
         time_str = time_str.replace(" ", "");
@@ -150,11 +161,6 @@ public class AudioRecordActivity extends Activity
         time_str = time_str.replace("-","m");
 
         mFileName += "/" + time_str + "audiorecordtest.3gp";
-
-//        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-//        mFileName += "/"+R.string.app_name+"/records/";
-//        // TODO : give a unic name. Time based is fine.
-//        mFileName += "/audiorecordtest.3gp";
     }
 
     @Override
