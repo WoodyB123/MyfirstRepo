@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,13 +37,13 @@ public class KidMenu extends ActionBarActivity {
     private static final String LOG_TAG = "AudioplayerKidsMenuTest";
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
-    private AsyncTask find_task;
+//    private AsyncTask find_task;
     private ArrayList<Document> list_of_docs;
     private Integer size_of_list_of_docs;
-    private ProgressDialog barProgressDialog;
-    private Handler updateBarHandler;
-    private Document temp_doc;
-    private boolean done_download = false;
+//    private ProgressDialog barProgressDialog;
+//    private Handler updateBarHandler;
+//    private Document temp_doc;
+//    private boolean done_download = false;
     private MediaPlayer mPlayer = null;
     private String speech_to_string = "none";
     private Integer vid_index = 0;
@@ -75,8 +74,6 @@ public class KidMenu extends ActionBarActivity {
                     promptSpeechInput();
                 }
             });
-
-
             suggestVid();
         }
     }
@@ -96,7 +93,7 @@ public class KidMenu extends ActionBarActivity {
 
     private void suggestVid()
     {
-        if (vid_index < size_of_list_of_docs) {
+        if (vid_index < size_of_list_of_docs-1) {
             vid_index = vid_index + 1;
         }else
         {
@@ -145,13 +142,32 @@ public class KidMenu extends ActionBarActivity {
 
     private Bitmap getYoutubThumbnail(String youtube_url)
     {
-        Uri youtube_uri = Uri.parse(youtube_url);
-        String temp_vid_query = youtube_uri.getQuery();
         String vid_ID = null;
-        if (temp_vid_query != null) {
-            vid_ID = temp_vid_query.split("&")[0].split("=")[1];
+        vid_ID = getVidID(youtube_url);
+//        Uri youtube_uri = Uri.parse(youtube_url);
+//        String temp_vid_query = youtube_uri.getQuery();
+//        if (temp_vid_query != null) {
+//            vid_ID = temp_vid_query.split("&")[0].split("=")[1];
+//        }
+        if ( vid_ID == null )
+        {
+            return getDefaultThumbnail();
         }
-        String pic_url = "http://img.youtube.com/vi/"+vid_ID+"/1.jpg";
+        else
+        {
+            return getThumbnailFromVidId(vid_ID);
+        }
+    }
+
+    private Bitmap getDefaultThumbnail()
+    {
+        Bitmap bm = BitmapFactory.decodeResource(null,R.mipmap.nothumbnailpic);
+        return  bm;
+    }
+
+    private Bitmap getThumbnailFromVidId(String vid_ID)
+    {
+        String pic_url = "http://img.youtube.com/vi/"+vid_ID+"/0.jpg";
         Bitmap temp_pic;
         try {
             temp_pic = getBitmapFromURL(pic_url);
@@ -160,11 +176,50 @@ public class KidMenu extends ActionBarActivity {
         }
         return temp_pic ;
     }
+    private String getVidID(String youtube_url)
+    {
+        Uri youtube_uri = Uri.parse(youtube_url);
+        String temp_vid_query = youtube_uri.getQuery();
+        String vid_ID = null;
+        if (youtube_url != null) {
+            // Method 1 : for .../v?=XXX/...
+            String temp_first_split = youtube_url.split("&")[0];
+            if (temp_first_split != null) {
+                String[] temp_second_split_array = temp_first_split.split("=");
+                if (temp_second_split_array  != null)
+                {
+                    if (temp_second_split_array.length > 1)
+                    {
+                        vid_ID = temp_second_split_array[1];
+                    }
+                }
+            }
+            // Method 2 : for ....youtu.be/XXX/...
+            if (vid_ID == null)
+            {
+                String temp_first_split2 = youtube_url.split("&")[0];
+                if (temp_first_split2 != null) {
+                    String[] temp_second_split_array2 = temp_first_split2.split(".be/");
+                    if (temp_second_split_array2 != null)
+                    {
+                        if (temp_second_split_array2.length > 1)
+                        {
+                            vid_ID = temp_second_split_array2[1];
+                        }
+                    }
+                }
+
+//                vid_ID = youtube_url.split("&")[0].split(".be/")[1];
+            }
+        }
+        return vid_ID;
+    }
 
     public static Bitmap getBitmapFromURL(String src) {
         try {
 
             DownloadImageTask temp_download_task = new DownloadImageTask();
+
             Bitmap myBitmap = temp_download_task.execute(src).get();
 
 //            URL url = new URL(src);

@@ -14,8 +14,8 @@
         android:id="@+id/kids_menu_s2t_text_view"/>
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:text="@string/kids_menu_button_start_voice"
         android:id="@+id/kids_menu_start_voice_to_text"/>
 
