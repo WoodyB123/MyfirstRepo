@@ -1,6 +1,5 @@
 package com.example.woody.kiddymov;
 
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,7 +7,6 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -35,15 +33,9 @@ import java.util.Locale;
 public class KidMenu extends ActionBarActivity {
 
     private static final String LOG_TAG = "AudioplayerKidsMenuTest";
-
     private final int REQ_CODE_SPEECH_INPUT = 100;
-//    private AsyncTask find_task;
     private ArrayList<Document> list_of_docs;
     private Integer size_of_list_of_docs;
-//    private ProgressDialog barProgressDialog;
-//    private Handler updateBarHandler;
-//    private Document temp_doc;
-//    private boolean done_download = false;
     private MediaPlayer mPlayer = null;
     private String speech_to_string = "none";
     private Integer vid_index = 0;
@@ -59,7 +51,6 @@ public class KidMenu extends ActionBarActivity {
 
         DocumetsBuilder find_doc_builder = new DocumetsBuilder(this);
         Document find_doc = find_doc_builder.getUserDocOnly();
-//        FindIterable<Document> user_vids_list = mdb_handler.findDoc(find_doc);
         list_of_docs = mdb_handler.findDoc(find_doc);
         size_of_list_of_docs = list_of_docs.size();
         String temp_str = "none";
@@ -82,7 +73,6 @@ public class KidMenu extends ActionBarActivity {
     {
         Document vid_doc = list_of_docs.get(vid_index);
         Intent temp_intent = new Intent(Intent.ACTION_VIEW, Uri.parse(vid_doc.getString("vid_url")));
-//            temp_intent.putExtra(SearchManager.QUERY, vid_doc.getString("vid_url"));
         int count = (int)vid_doc.get("count");
         count++;
         Document new_doc =new Document("count", count);
@@ -144,11 +134,6 @@ public class KidMenu extends ActionBarActivity {
     {
         String vid_ID = null;
         vid_ID = getVidID(youtube_url);
-//        Uri youtube_uri = Uri.parse(youtube_url);
-//        String temp_vid_query = youtube_uri.getQuery();
-//        if (temp_vid_query != null) {
-//            vid_ID = temp_vid_query.split("&")[0].split("=")[1];
-//        }
         if ( vid_ID == null )
         {
             return getDefaultThumbnail();
@@ -178,8 +163,6 @@ public class KidMenu extends ActionBarActivity {
     }
     private String getVidID(String youtube_url)
     {
-        Uri youtube_uri = Uri.parse(youtube_url);
-        String temp_vid_query = youtube_uri.getQuery();
         String vid_ID = null;
         if (youtube_url != null) {
             // Method 1 : for .../v?=XXX/...
@@ -208,8 +191,6 @@ public class KidMenu extends ActionBarActivity {
                         }
                     }
                 }
-
-//                vid_ID = youtube_url.split("&")[0].split(".be/")[1];
             }
         }
         return vid_ID;
@@ -221,21 +202,8 @@ public class KidMenu extends ActionBarActivity {
             DownloadImageTask temp_download_task = new DownloadImageTask();
 
             Bitmap myBitmap = temp_download_task.execute(src).get();
-
-//            URL url = new URL(src);
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            connection.setDoInput(true);
-//            connection.connect();
-//            InputStream input = connection.getInputStream();
-//            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-////            Bitmap myBitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
             return myBitmap;
         }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
         catch (Exception e) {
             return null;
         }
@@ -248,13 +216,8 @@ public class KidMenu extends ActionBarActivity {
             suggestVid();
         }
         if (command.equals("play"))
-//        else  //dbg
         {
             playVid();
-//            Document vid_doc = list_of_docs.get(vid_index);
-//            Intent temp_intent = new Intent(Intent.ACTION_VIEW, Uri.parse(vid_doc.getString("vid_url")));
-////            temp_intent.putExtra(SearchManager.QUERY, vid_doc.getString("vid_url"));
-//            startActivity(temp_intent);
         }
         else
         {
@@ -328,63 +291,3 @@ class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         }
     }
 }
-
-
-
-//    public static String getYoutubeThumbnailUrl(String youtubeUrl)
-//    {
-//        String thumbImageUrl = "http://img.youtube.com/vi/noimagefound/default.jpg";
-//        if( youtubeUrl!=null && youtubeUrl.trim().length()>0 && youtubeUrl.startsWith("http") && youtubeUrl.contains("youtube"))
-//        {
-//            LinkedHashMap<String, String> params = new LinkedHashMap<String, String>();
-//            try
-//            {
-//                youtubeUrl = URLDecoder.decode(youtubeUrl, "UTF-8");
-//                if(youtubeUrl.indexOf('?')>0)
-//                {
-//                    String array[] = youtubeUrl.split("\\?");
-//                    int equalsFilterIndex = array.length - 1;
-//                    String equalsString = array[equalsFilterIndex];
-//                    if(equalsString.indexOf('&')>0)
-//                    {
-//                        String ampersandArray[] = equalsString.split("&");
-//                        for (String parameter : ampersandArray)
-//                        {
-//                            String keyvaluePair[] = parameter.split("=");
-//                            params.put(URLDecoder.decode(keyvaluePair[0],"UTF-8"),URLDecoder.decode(keyvaluePair[1],"UTF-8"));
-//                        }
-//                    }
-//                    else
-//                    {
-//                        String v[] = equalsString.split("=");
-//                        params.put(URLDecoder.decode(v[0],"UTF-8"),URLDecoder.decode(v[1],"UTF-8"));
-//                    }
-//                }
-//                int size = params.size();
-//                if(size==0 || !params.containsKey("v"))
-//                {
-//                    if(size>0)
-//                        youtubeUrl = youtubeUrl.substring(0, youtubeUrl.indexOf("?",0));
-//                    String vtoSplit = "/v/";
-//                    int index = youtubeUrl.indexOf(vtoSplit,0);
-//                    int fromIndex = index + vtoSplit.length();
-//                    int lastIndex = youtubeUrl.indexOf("?", 0);
-//                    if(lastIndex==-1)
-//                        lastIndex = youtubeUrl.length();
-//                    String v = youtubeUrl.substring(fromIndex,lastIndex);
-//                    thumbImageUrl = "http://img.youtube.com/vi/" + v + "/default.jpg";
-//                }
-//                else
-//                {
-//                    String v = params.get("v");
-//                    thumbImageUrl = "http://img.youtube.com/vi/" + v + "/default.jpg";
-//                }
-//            }
-//            catch(Exception e)
-//            {
-//                if(e!=null)
-//                    e.printStackTrace();
-//            }
-//        }
-//        return thumbImageUrl;
-//    }

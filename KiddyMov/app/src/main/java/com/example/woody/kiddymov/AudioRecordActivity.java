@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.content.Context;
 import android.util.Log;
 import android.media.MediaRecorder;
@@ -151,7 +150,6 @@ public class AudioRecordActivity extends Activity
         }
         catch (Exception e){}
         mFileName = mydir.getAbsolutePath();
-//        mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         Calendar c = Calendar.getInstance();
         String time_str = c.getTime().toString();
         time_str = time_str.replace(" ", "");

@@ -2,7 +2,6 @@ package com.example.woody.kiddymov;
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,11 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import java.net.URL;
-
 
 public class ParentMenu extends ActionBarActivity {
-//    public final static String EXTRA_VID_URL = "com.example.woody.kiddymov.VID_URL";
     private EditText search_key_text;
 
     @Override

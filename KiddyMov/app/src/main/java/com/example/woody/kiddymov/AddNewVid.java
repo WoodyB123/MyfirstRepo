@@ -68,12 +68,6 @@ public class AddNewVid extends ActionBarActivity {
                 user_name = "temp_user";
                 DocumetsBuilder doc_builder =  new DocumetsBuilder(AddNewVid.this);
                 Document vid_doc = doc_builder.getDoc(new_vid_str,answer1,0,record_path);
-//                Document vid_doc = new Document();
-//                vid_doc.append("vid_url", new_vid_str)
-//                        .append("q1", answer1)
-//                        .append("count", 0)
-//                        .append("user_name", user_name)
-//                        .append("record_file_path", record_path);
                 insertTask = mongoDBHandler.insertDoc(vid_doc);
                 try {
                     launchBarDialog();
